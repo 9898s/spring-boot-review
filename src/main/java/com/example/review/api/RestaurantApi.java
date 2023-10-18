@@ -1,7 +1,10 @@
 package com.example.review.api;
 
 import com.example.review.api.request.CreateAndEditRestaurantRequest;
+import com.example.review.api.response.RestaurantDetailView;
+import com.example.review.api.response.RestaurantView;
 import com.example.review.service.RestaurantService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +21,15 @@ public class RestaurantApi {
   private final RestaurantService restaurantService;
 
   @GetMapping("/restaurants")
-  public String getRestaurants() {
-    return "This is getRestaurants";
+  public List<RestaurantView> getRestaurants() {
+    return restaurantService.getAllRestaurants();
   }
 
   @GetMapping("/restaurant/{restaurantId}")
-  public String getRestaurant(
+  public RestaurantDetailView getRestaurant(
       @PathVariable Long restaurantId
   ) {
-    return "This is getRestaurant, " + restaurantId;
+    return restaurantService.getRestaurantDetail(restaurantId);
   }
 
   @PostMapping("/restaurant")
